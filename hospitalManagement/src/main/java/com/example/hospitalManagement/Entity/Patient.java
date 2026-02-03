@@ -1,13 +1,13 @@
 package com.example.hospitalManagement.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "patient")
+@UniqueConstraint(name = "unique_patient_email",columnNames = {"email"}),
+@UniqueConstraint()
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
