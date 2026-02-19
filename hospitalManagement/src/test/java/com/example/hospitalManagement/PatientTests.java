@@ -28,5 +28,8 @@ public class PatientTests {
     public void testTransactionMethods(){
         Patient p1 = patientService.getPatientById(1L);
         System.out.println(p1);
+        Patient patient = patientRepository.findByName("Deepika Rao");
+        System.out.println(patient);
     }
+
 }

@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
         }
 
 )
+@ToString
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,10 +32,10 @@ public class Patient {
     @Column(unique = true,nullable = false)
     private String email;
     private String gender;
-    @ToString.Exclude
-    private String Bloodgroup;
-    @CreationTimestamp
-    @Column(updatable = false)
+    @Enumerated(EnumType.STRING)
+    private BloodGroupType Bloodgroup;
+    @Column(updatable = false,nullable = false,columnDefinition = "timestamp default current_timestamp")
 //    updateable=false makes sure that in future this createdAt will never change.
+    @CreationTimestamp
     private LocalDateTime createdAt;
 }
