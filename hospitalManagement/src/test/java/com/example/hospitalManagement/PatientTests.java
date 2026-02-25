@@ -1,5 +1,6 @@
 package com.example.hospitalManagement;
 
+import com.example.hospitalManagement.Entity.BloodGroupType;
 import com.example.hospitalManagement.Entity.Patient;
 import com.example.hospitalManagement.Service.PatientService;
 import com.example.hospitalManagement.repository.PatientRepository;
@@ -40,7 +41,7 @@ public class PatientTests {
         List<Patient> patientNamedESCList = patientRepository.findAllByOrderByIdDesc();
         System.out.println(patientNamedESCList);
         //jpql->
-        List<Patient> patientsbloodgr = patientRepository.findByBloodGroup();
+        List<Patient> patientsbloodgr = patientRepository.findByBloodGroup(BloodGroupType.O_NEGATIVE);
         System.out.print(patientsbloodgr);
     }
 

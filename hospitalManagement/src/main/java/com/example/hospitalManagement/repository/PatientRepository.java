@@ -1,8 +1,10 @@
 package com.example.hospitalManagement.repository;
 
+import com.example.hospitalManagement.Entity.BloodGroupType;
 import com.example.hospitalManagement.Entity.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -21,6 +23,6 @@ public interface PatientRepository extends JpaRepository<Patient,Long> {
 
 
     List<Patient> findAllByOrderByIdDesc();
-    @Query("select * from patient where bloodgroup='O_NEGATIVE'")
-    List<Patient> findByBloodGroup();
+    @Query("select p from Patient p where p.Bloodgroup= :Bloodgroup")
+    List<Patient> findByBloodGroup(@Param("Bloodgroup")BloodGroupType bloodGroupType);
 }
