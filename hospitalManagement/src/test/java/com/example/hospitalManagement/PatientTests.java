@@ -1,5 +1,6 @@
 package com.example.hospitalManagement;
 
+import com.example.hospitalManagement.DTO.PatientAccordingtoBloodgr;
 import com.example.hospitalManagement.Entity.BloodGroupType;
 import com.example.hospitalManagement.Entity.Patient;
 import com.example.hospitalManagement.Service.PatientService;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
+import java.util.LinkedList;
 import java.util.List;
 
 @SpringBootTest
@@ -43,6 +45,20 @@ public class PatientTests {
         //jpql->
         List<Patient> patientsbloodgr = patientRepository.findByBloodGroup(BloodGroupType.O_NEGATIVE);
         System.out.print(patientsbloodgr);
+        List<Patient> patientsAfterBDate = patientRepository.findByBornAfterDate(LocalDate.of(1976,01,14));
+        for(Patient p : patientsAfterBDate){
+            System.out.println(p);
+        }
+        List<PatientAccordingtoBloodgr> patientsAccordingtoBloodgroup = patientRepository.totalCountBloodGrwise();
+        for(PatientAccordingtoBloodgr p : patientsAccordingtoBloodgroup){
+            //TotalBloodGr.wise
+            System.out.println("BloodGr. Type: " +  p.getBloodGroupType() + " | Count: " + p.getCount());
+        }
+        //all-patients
+        List<Patient> allPatients = patientRepository.findAllPatients();
+        System.out.println(allPatients);
+
+
     }
 
 }
