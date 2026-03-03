@@ -3,7 +3,12 @@ package com.example.hospitalManagement.repository;
 import com.example.hospitalManagement.DTO.PatientAccordingtoBloodgr;
 import com.example.hospitalManagement.Entity.BloodGroupType;
 import com.example.hospitalManagement.Entity.Patient;
+import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -41,5 +46,11 @@ public interface PatientRepository extends JpaRepository<Patient,Long> {
     //NOTE:-> With new → Hibernate directly calls your constructor
     //usuing native query ->
     @Query(value = "select * from Patient", nativeQuery = true)
-    List<Patient> findAllPatients();
+    Page<Patient> findAllPatients(Pageable pageable);
+    //update name according to id
+    @Transactional
+    @Modifying
+    @Query("UPDATE Patient p SET p.name=:name WHERE p.id=:id")
+    int updateNameWithId(@Param("name") String name,@Param("id") Long id);
+    Page<Patient> findAll(Pageable pageable);
 }

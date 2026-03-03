@@ -8,6 +8,10 @@ import com.example.hospitalManagement.repository.PatientRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
@@ -55,8 +59,24 @@ public class PatientTests {
             System.out.println("BloodGr. Type: " +  p.getBloodGroupType() + " | Count: " + p.getCount());
         }
         //all-patients
-        List<Patient> allPatients = patientRepository.findAllPatients();
-        System.out.println(allPatients);
+        Page<Patient> allPatients = patientRepository.findAllPatients(PageRequest.of(0,3));
+        //here passing page no.wise data. 0--3 only 3 data by each page
+        for(Patient p : allPatients){
+            System.out.println(p);
+        }
+        //sort by:-
+        Page<Patient> allPatientsSortByName =
+                patientRepository.findAll(
+                        PageRequest.of(0, 3, Sort.by("name"))
+                );
+
+        for (Patient p : allPatientsSortByName.getContent()) {
+            System.out.println(p);
+        }
+
+        //update
+        int rowsUpload = patientRepository.updateNameWithId("Moumita Das", 2L);
+        System.out.println(rowsUpload);
 
 
     }
