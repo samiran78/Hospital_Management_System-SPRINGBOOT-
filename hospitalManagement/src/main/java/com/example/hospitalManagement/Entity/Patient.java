@@ -34,6 +34,13 @@ public class Patient {
     private String gender;
     @Enumerated(EnumType.STRING)
     private BloodGroupType Bloodgroup;
+    //we will use one ASSOCIATION-HERE - one patient have one insurence
+    //NOTE :-> Patient is the inverse side, and Insurance is still the owning side.
+
+    @OneToOne(mappedBy = "Patient",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,orphanRemoval = true)  //ensures that if later setInsurence=null, orphanremov helps to remove from db
+    private Insurance insurance;
     @Column(updatable = false,nullable = false,columnDefinition = "timestamp default current_timestamp")
 //    updateable=false makes sure that in future this createdAt will never change.
     @CreationTimestamp
